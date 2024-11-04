@@ -1,0 +1,17 @@
+
+body{
+    background-color: rgba(136, 172, 225, 0.844);
+}
+
+.formulario{
+    position: center;
+    margin: 8%;
+    padding: 2%;
+    background-color: aliceblue;
+}
+
+.buttons_holder{
+    margin: 3%;
+    display: flex;
+    justify-content:space-around;
+}
