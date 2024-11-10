@@ -15,3 +15,12 @@ body{
     display: flex;
     justify-content:space-around;
 }
+
+
+/*Span error*/
+
+.error-message{
+    color: red;
+    display: none;
+    font-size: x-small;
+}
