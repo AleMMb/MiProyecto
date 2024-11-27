@@ -3,7 +3,7 @@ $(".error-message").hide(); //esconde el mensaje de error
 
 //validaciones productos.html
 $("#nuevo_producto").on("submit", function (event) {
-    event.preventDefault(); //previene reload
+    //event.preventDefault(); //previene reload
 
     let nuevo_producto = $("#Nombre_producto").val()
     let nuevo_precio = $("#Precio_producto").val()
@@ -32,7 +32,7 @@ $("#nuevo_producto").on("submit", function (event) {
 
 //Validaciones categorias.html
 $("#nueva_categoria").on("submit", function (event) {
-    event.preventDefault();
+    //event.preventDefault();
     let nuevo_categoria = $("#Nombre_categoria").val()
     let nuevo_codigo = $("#id_categoria").val()
 

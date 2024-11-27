@@ -23,4 +23,4 @@ INSERT INTO categories (name)
 VALUES ('Software');
 
 INSERT INTO products (name, img, description, price, category_id)
-VALUES ('Windows 11', 'https://mega.nz/file/a6QymTBZ#vNwZfGQE_jFsXc2Od4KSdNSLGHpLbb-KX9-MX99ejVw', 'Sistema operativo microsoft Windows 11', 99.99, 1);
+VALUES ('Windows 11', 'https://keytive.com/wp-content/uploads/2023/01/Microsoft-Windows-11-Pro-OEM.png', 'Sistema operativo microsoft Windows 11', 99.99, 1);

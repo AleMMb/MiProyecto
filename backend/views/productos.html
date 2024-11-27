@@ -19,37 +19,37 @@
 <body>
     <div class="formulario">
         <h2>Agregar nuevo producto:</h2>
-        <form id="nuevo_producto">
+        <form id="nuevo_producto" action="/backend/productosController.php" method="post">
             <div class="mb-3">
                 <label for="categorias" class="form-label">Seleccione una categoria:</label>
-                <select id="categorias" class="form-select">
-                    <option value="1">Software</option>
-                    <option value="2">Periferico</option>
-                    <option value="3">Monitor</option>
-                    <option value="4">Componente</option>
+                <select id="categorias" class="form-select" name="SelCategoria">
+                    <option value="Software">Software</option>
+                    <option value="Perifericos">Periferico</option>
+                    <option value="Monitor">Monitor</option>
+                    <option value="Componente">Componente</option>   
                 </select>
             </div>
 
             <div class="mb-3">
                 <label for="Nombre_producto" class="form-label">Nombre del producto:</label>
-                <input type="text" class="form-control" id="Nombre_producto" />
+                <input type="text" class="form-control" id="Nombre_producto" name="NombreProducto" />
                 <span id="error_nombre" class="error-message">Alejandra Mella Bonilla</span>
             </div>
 
             <div class="mb-3">
                 <label for="Precio_producto" class="form-label">Precio:</label>
-                <input type="number" class="form-control" id="Precio_producto" />
+                <input type="number" class="form-control" id="Precio_producto" name="PrecioProducto" />
                 <span id="error_precio" class="error-message">Por favor ingrese el precio del producto</span>
             </div>
 
             <div class="mb-3">
                 <label for="Descripcion_producto" class="form-label">Descripción:</label>
-                <textarea class="form-control" aria-label="With textarea" id="Descripcion_producto"></textarea>
+                <textarea class="form-control" aria-label="With textarea" id="Descripcion_producto" name="DescripcionProducto"></textarea>
                 <span id="error_descripcion" class="error-message">Alejandra Mella Bonilla.</span>
             </div>
             <label for="Img_producto" class="form-label">Imagen:</label>
             <div class="input-group">
-                <input type="file" class="form-control" id="Img_producto" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                <input type="file" class="form-control" id="Img_producto" name="ImgProducto" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                 <span id="error_imagen" class="error-message">El producto debe tener imagen</span>
                 <button class="btn btn-outline-secondary" type="button" id="Img_producto">Subir Imagen</button>
             </div>

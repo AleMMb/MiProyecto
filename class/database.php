@@ -1,52 +1,74 @@
-<?php /*Waleska Alejandra Mella Bonilla */
-?>
+<?php /*Waleska Alejandra Mella Bonilla */?>
 
 <?php
+class Database {
+    private $pdo;
 
-class Cconexion {
-    function conectBD(){
-        $host = "localhost";
-        $user = "postgres";
-        $pass = "woman2020";
-        $dbName = "miproyecto";
+    public function __construct() {
+        // Datos de conexión a la base de datos
+        $host = 'localhost';
+        $dbname = 'miproyecto';
+        $user = 'postgres';
+        $password = 'woman2020';
+        $dsn = "pgsql:host=$host;dbname=$dbname"; 
 
-        try{
-            $conn = new PDO("pgsql:host=$host;dbname=$dbName", $user, $pass);
-            echo "Se conectó correctamente a la Base de Datos.";
-        } catch(PDOException $ex){
-            echo ("Error al conectar a la Base de Datos: " . $ex->getMessage());
+        try {
+            $this->pdo = new PDO("$dsn", $user, $password);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        } catch(PDOException $e) {
+            die("Error de conexión: " . $e->getMessage());
         }
-        return $conn;
     }
+
+    
+    public function getConexion() {
+        return $this->pdo;
+    }
+    /*// Método para ejecutar consultas
+    public function query($sql, $params = []) {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt;
+    }
+
+    // Método para obtener todos los registros de una tabla
+    public function selectAll($table) {
+        $stmt = $this->query("SELECT * FROM $table");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Método para insertar un registro
+    public function insert($table, $data) {
+        $keys = array_keys($data);
+        $values = array_fill(0, count($keys), '?');
+        $sql = "INSERT INTO $table (`" . implode('`,`', $keys) . "`) VALUES (" . implode(',', $values) . ")";
+        $this->query($sql, array_values($data));
+        return $this->pdo->lastInsertId();
+    }
+
+    //Método para modificar un registro de una tabla
+    public function update($table, $data, $where) {
+        $setClause = [];
+        foreach ($data as $key => $value) {
+            $setClause[] = "$key = ?";
+        }
+    
+        $sql = "UPDATE $table SET " . implode(', ', $setClause) . " WHERE $where";
+    
+        $stmt = $this->pdo->prepare($sql);
+        $params = array_values($data);
+        $stmt->execute($params);
+    }
+
+    //Método para elimiar un registro de una tabla.
+    public function delete($table, $where) {
+        $sql = "DELETE FROM $table WHERE $where";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+    }*/
 }
-?>
 
-<?php
-
-$cconexion = new Cconexion();
-
-
- $data = $cconexion->conectBD()->prepare("SELECT * FROM products");
- $data->execute();
- $result = $data->fetchAll(PDO::FETCH_ASSOC);
- echo "<pre>";
- print_r($result);
- echo "</pre>";
 ?>
 
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
-</head>
-<body>
-    <?php 
-        $cconexion = new Cconexion();
-        $cconexion->conectBD(); ?>
-    <h2>Productos desde PostgresSQL</h2>
-</body>
-</html>

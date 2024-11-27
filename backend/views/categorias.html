@@ -15,17 +15,11 @@
 <body>
     <div class="formulario">
         <h2>Agregar nueva categoría:</h2>
-        <form id="nueva_categoria">
+        <form id="nueva_categoria" action="../categoriasController.php" method="post">
             <div class="mb-3">
                 <label for="Nombre_categoria" class="form-label">Nombre de la nueva categoria:</label>
-                <input type="text" class="form-control" id="Nombre_categoria" />
+                <input type="text" class="form-control" id="Nombre_categoria" name="Nombre_categoria" />
                 <span id="error_categoria" class="error-message">Este campo es obligatorio</span>
-            </div>
-
-            <div class="mb-3">
-                <label for="id_categoria" class="form-label">Código:</label>
-                <input type="number" class="form-control" id="id_categoria" />
-                <span id="error_id_categoria" class="error-message">La categoría debe ir asociada a un código</span>
             </div>
 
             <div class="buttons_holder">
