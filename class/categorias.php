@@ -32,7 +32,6 @@ class Categoria{
             $stmt->bindParam(':nombre', $this->nombre_categoria);
             $stmt->execute();
 
-            echo "Categoría agregada exitosamente.";
         } catch (PDOException $e) {
             echo "Error al insertar categoría: " . $e->getMessage();
         }
@@ -50,5 +49,21 @@ class Categoria{
         }
     }
 
+
+    /*Código funcionando pero el boron está deshabilitado en la vista
+    porque la consigna no lo pide.*/
+    public function eliminarCategoria($id) {
+        $sql = "DELETE FROM categories WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    
+        try {
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo "Error al eliminar la categoría: " . $e->getMessage();
+            return false;
+        }
+    }
 }
 ?>

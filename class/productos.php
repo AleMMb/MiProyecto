@@ -2,74 +2,67 @@
 
 <?php
 
-require_once 'database.php';
+class Producto {
+    private $id_producto;
+    private $nombre_producto;
+    private $imagen;
+    private $descripcion;
+    private $precio;
+    private $categoria_id;
+    private $pdo;
 
-class Producto
-{
-    public $id;
-    public $nombre;
-    public $imagen;
-    public $descripcion;
-    public $precio;
-    public $categoria;
-
-
-    public function __construct($data)
-    {
-        $this->id = $data['id'] ?? null;
-        $this->nombre = $data['name'];
-        $this->imagen = $data['image'];
-        $this->descripcion = $data['description'];
-        $this->precio = $data['price'];
-        $this->categoria = $data['category_id'];
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
     }
 
 
-    public function crearProducto($data) {
-        $db = new Database();
-        
-        // Crear un objeto Producto
-        $producto = new Producto($data);
-
-        // Insertar el producto en la base de datos
-        $this->$db->insert('products', $producto);
-
-        return true;
+    public function setNombre($nombre) {
+        $this->nombre_producto = $nombre;
     }
 
+    public function setImagen($imagen) {
+        $this->imagen = $imagen;
+    }
 
+    public function setDescripcion($descripcion) {
+        $this->descripcion = $descripcion;
+    }
+
+    public function setPrecio($precio) {
+        $this->precio = $precio;
+    }
+
+    public function setCategoriaId($categoria_id) {
+        $this->categoria_id = $categoria_id;
+    }
+
+    // Método para insertar un producto
+    public function insertarProducto() {
+        $sql = "INSERT INTO products (name, img, description, price, category_id) VALUES (:name, :img, :description, :price, :category_id)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':name', $this->nombre_producto);
+        $stmt->bindParam(':img', $this->imagen);
+        $stmt->bindParam(':description', $this->descripcion);
+        $stmt->bindParam(':price', $this->precio);
+        $stmt->bindParam(':category_id', $this->categoria_id);
+
+        return $stmt->execute();
+    }
+
+    // Trae todos los productos
+    public function obtenerTodosLosProductos() {
+        $sql = "SELECT * FROM products";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // elimina un producto por id
+    public function eliminarProducto($id) {
+        $sql = "DELETE FROM products WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }
 ?>
-
-
-
-
-
-
-
-
-<?php
-/*$cconexion = new Database();
-$productos = $cconexion->selectAll('products');
-?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
-</head>
-<body>
-<pre>
-    <?php print_r($productos);
-    ?>
-</pre>
-    <h2>Productos desde PostgresSQL</h2>
-    <div>
-    <?php
-    $imagen_url = $productos[0]['img']; echo '<img src="' . $imagen_url . '" alt="Imagen de Windows 11">'; ?>
-    </div>
-</body>
-</html>*/

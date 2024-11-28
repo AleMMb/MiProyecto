@@ -1,41 +1,39 @@
-<?php
-/*Waleska Alejandra Mella Bonilla */ ?>
+<?php /*Waleska Alejandra Mella Bonilla */ ?>
 
 <?php
-// Obtener los datos del formulario
-$categoria = $_POST['SelCategoria'];
-$nombre = $_POST['NombreProducto'];
-$precio = $_POST['PrecioProducto'];
-$descripcion = $_POST['DescripcionProducto'];
-$imagen_url = $_POST['ImgProducto'];
+include '../class/database.php';
+include '../class/productos.php';
 
-var_dump($_POST);
+$db = new Database();
+$producto = new Producto($db->getConexion());
 
-// Crear un objeto (ejemplo básico)
-class Producto {
-    public $categoria;
-    public $nombre;
-    public $precio;
-    public $descripcion;
-    public $imagen_url;
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nombre = $_POST['NombreProducto'];
+    $imagen = $_POST['ImgProducto'];
+    $descripcion = $_POST['DescripcionProducto'];
+    $precio = $_POST['PrecioProducto'];
+    $categoria_id = $_POST['SelCategoria'];
 
-    public function __construct($categoria, $nombre, $precio, $descripcion,$imagen_url) {
-        $this->categoria = $categoria;
-        $this->nombre = $nombre;
-        $this->precio = $precio;
-        $this->descripcion = $descripcion;
-        $this->imagen_url = $imagen_url;
+    if (!empty($nombre) && !empty($imagen) && !empty($precio) && !empty($categoria_id)) {
+        $producto->setNombre($nombre);
+        $producto->setImagen($imagen);
+        $producto->setDescripcion($descripcion);
+        $producto->setPrecio($precio);
+        $producto->setCategoriaId($categoria_id);
+        $producto->insertarProducto();
+    } else {
+        echo "Todos los campos obligatorios deben estar completos.";
     }
 }
 
-// Crear una instancia del objeto
-$producto = new Producto( $categoria, $nombre, $precio, $descripcion,$imagen_url);
+// Eliminar producto si se envía un ID por GET
+if (isset($_GET['id'])) {
+    $producto->eliminarProducto($_GET['id']);
+}
 
-// Imprimir los datos del objeto (para verificar)
-echo "Nombre del producto: " . $producto->nombre . "<br>";
-echo "Precio del producto: " . $producto->precio . "<br>";
-echo "Descripción del producto: " . $producto->descripcion . "<br>";
-echo "Imagen del producto: " . $producto->imagen_url . "<br>";
-echo "La categoria:" . $producto->categoria;
+// Obtener todos los productos
+$productos = $producto->obtenerTodosLosProductos();
+include './views/lista_productos.php';
+
 ?>
 

@@ -10,6 +10,14 @@ body{
     background-color: aliceblue;
 }
 
+.div_listado{
+    position: center;
+    justify-items: center;
+    margin: 8%;
+    padding: 2%;
+    background-color: aliceblue;
+}
+
 .buttons_holder{
     margin: 3%;
     display: flex;
