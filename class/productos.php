@@ -64,5 +64,16 @@ class Producto {
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+
+    public function obtenerTodosLosProductosMasCategoria(){
+        $sql = "SELECT p.id, p.name, p.description, p.img, c.name AS categoria_nombre 
+        FROM products p 
+        INNER JOIN categories c ON p.category_id = c.id";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 ?>

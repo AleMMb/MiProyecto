@@ -31,9 +31,13 @@ if (isset($_GET['id'])) {
     $producto->eliminarProducto($_GET['id']);
 }
 
+// Obtener todos los productos con el nombre de la categoria
+$productosYCategoria = $producto->obtenerTodosLosProductosMasCategoria();
+
 // Obtener todos los productos
 $productos = $producto->obtenerTodosLosProductos();
 include './views/lista_productos.php';
+
 
 ?>
 

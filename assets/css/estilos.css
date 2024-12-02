@@ -32,3 +32,8 @@ body{
     display: none;
     font-size: x-small;
 }
+
+
+.card-text{
+    text-align:justify;
+}
